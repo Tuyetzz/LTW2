@@ -11,105 +11,16 @@
     <label for="numStudents">Nhập số lượng sinh viên:</label>
     <input type="number" id="numStudents" name="numStudents">
     <button onclick="submitNumStudents()">Submit</button>
-
+    <button onclick="displayStudentInfo()">Hiển thị thông tin sinh viên</button>
     <div id="studentFields" style="display: none;">
         <h2>Thông tin sinh viên</h2>
         <div id="studentContainer"></div>
         <button onclick="submitStudents()">Submit</button>
     </div>
-
-    <button onclick="displayStudentInfo()">Hiển thị thông tin sinh viên</button>
+    <br>
+    <button onclick="clearStudents()">Xóa toàn bộ sinh viên</button>
+    <button onclick="editStudent()">Sửa thông tin sinh viên theo ID</button>
     <div id="studentInfoDisplay"></div>
     <script src="index.js"></script>
 </body>
 </html>
-
-
-
-<!-- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quản Lý Sinh Viên</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-    }
-    h1 {
-        text-align: center;
-    }
-    label {
-        display: block;
-        margin-bottom: 5px;
-    }
-    input, button {
-        margin-bottom: 10px;
-    }
-</style>
-</head>
-<body>
-
-<h1>Quản Lý Sinh Viên</h1>
-
-<label for="studentCount">Nhập số lượng sinh viên:</label>
-<input type="number" id="studentCount">
-<button onclick="enterStudentInfo()">Nhập Thông Tin Sinh Viên</button>
-
-<div id="studentInfoForm"></div>
-
-<button onclick="displayStudentInfo()">Hiển Thị Thông Tin Sinh Viên</button>
-<div id="studentInfoDisplay"></div>
-
-<script>
-    var students = [];
-
-    function enterStudentInfo() {
-        var count = document.getElementById("studentCount").value;
-        var form = document.getElementById("studentInfoForm");
-       form.innerHTML = ""; // Reset form content
-
-        for (var i = 0; i < count; i++) {
-            form.innerHTML += "<h3>Thông Tin Sinh Viên " + (i + 1) + "</h3>";
-            form.innerHTML += "<label for='studentID" + i + "'>Mã SV:</label>";
-            form.innerHTML += "<input type='text' id='studentID" + i + "'>";
-
-            form.innerHTML += "<label for='studentName" + i + "'>Họ và Tên:</label>";
-            form.innerHTML += "<input type='text' id='studentName" + i + "'>";
-
-            form.innerHTML += "<label for='studentDOB" + i + "'>Ngày Tháng Năm Sinh:</label>";
-            form.innerHTML += "<input type='date' id='studentDOB" + i + "'>";
-
-            form.innerHTML += "<label for='studentClass" + i + "'>Lớp Học:</label>";
-            form.innerHTML += "<input type='text' id='studentClass" + i + "'>";
-
-            form.innerHTML += "<label for='studentGPA" + i + "'>Điểm GPA:</label>";
-            form.innerHTML += "<input type='number' step='0.01' id='studentGPA" + i + "'>";
-        }
-    }
-
-    function displayStudentInfo() {
-        var form = document.getElementById("studentInfoForm");
-        var display = document.getElementById("studentInfoDisplay");
-        display.innerHTML = "<h2>Thông Tin Sinh Viên</h2>";
-
-        for (var i = 0; i < form.children.length; i++) {
-            var studentID = document.getElementById("studentID" + i).value;
-            var studentName = document.getElementById("studentName" + i).value;
-            var studentDOB = document.getElementById("studentDOB" + i).value;
-            var studentClass = document.getElementById("studentClass" + i).value;
-            var studentGPA = document.getElementById("studentGPA" + i).value;
-
-            display.innerHTML += "<p><b>Mã SV:</b> " + studentID + "</p>";
-            display.innerHTML += "<p><b>Họ và Tên:</b> " + studentName + "</p>";
-            display.innerHTML += "<p><b>Ngày Tháng Năm Sinh:</b> " + studentDOB + "</p>";
-            display.innerHTML += "<p><b>Lớp Học:</b> " + studentClass + "</p>";
-            display.innerHTML += "<p><b>Điểm GPA:</b> " + studentGPA + "</p>";
-            display.innerHTML += "<hr>";
-        }
-    }
-</script>
-
-</body>
-</html> -->

@@ -74,20 +74,21 @@ function submitNumStudents() {
 }
 
 function submitStudents() {
-    var numStudents = document.getElementById("numStudents").value;
+    var studentContainers = document.querySelectorAll("#studentContainer > div");
+
 
     // Retrieve student information
-    for (var i = 1; i <= numStudents; i++) {
-        var id = document.getElementsByName("studentId" + i)[0].value;
-        var name = document.getElementsByName("fullName" + i)[0].value;
-        var dob = document.getElementsByName("dob" + i)[0].value;
-        var className = document.getElementsByName("class" + i)[0].value;
-        var gpa = document.getElementsByName("gpa" + i)[0].value;
+    studentContainers.forEach(function(container) {
+        var id = container.querySelector("input[name^='studentId']").value;
+        var name = container.querySelector("input[name^='fullName']").value;
+        var dob = container.querySelector("input[name^='dob']").value;
+        var className = container.querySelector("input[name^='class']").value;
+        var gpa = container.querySelector("input[name^='gpa']").value;
 
         // Create a new Student instance
         var student = new Student(id, name, dob, className, gpa);
         students.push(student);
-    }
+    });
 
     // Display student information
     var displayArea = document.getElementById("studentInfoDisplay");
@@ -104,29 +105,73 @@ function submitStudents() {
         displayArea.appendChild(studentInfo);
     }
 }
+
 function displayStudentInfo() {
     var displayArea = document.getElementById("studentInfoDisplay");
     displayArea.innerHTML = ""; // Clear previous display
 
-    // Retrieve student information
-    var numStudents = document.getElementById("numStudents").value;
+    // Retrieve student information from the 'students' array
     var studentsInfo = "";
-    for (var i = 1; i <= numStudents; i++) {
-        var id = document.getElementsByName("studentId" + i)[0].value;
-        var name = document.getElementsByName("fullName" + i)[0].value;
-        var dob = document.getElementsByName("dob" + i)[0].value;
-        var className = document.getElementsByName("class" + i)[0].value;
-        var gpa = document.getElementsByName("gpa" + i)[0].value;
+    for (var i = 0; i < students.length; i++) {
+        var student = students[i];
 
         // Concatenate student information
-        studentsInfo += "Student " + i + ":<br>" +
-            "ID: " + id + "<br>" +
-            "Name: " + name + "<br>" +
-            "DOB: " + dob + "<br>" +
-            "Class: " + className + "<br>" +
-            "GPA: " + gpa + "<br><br>";
+        studentsInfo += "Student " + (i + 1) + ":<br>" +
+            "ID: " + student.id + "<br>" +
+            "Name: " + student.name + "<br>" +
+            "DOB: " + student.dob + "<br>" +
+            "Class: " + student.className + "<br>" +
+            "GPA: " + student.gpa + "<br><br>";
     }
 
     // Display student information
     displayArea.innerHTML = studentsInfo;
+}
+
+// Function to clear all student information
+function clearStudents() {
+    // Reset the students array
+    students = [];
+
+    // Clear the student info display area
+    var displayArea = document.getElementById("studentInfoDisplay");
+    displayArea.innerHTML = "";
+}
+
+function editStudent() {
+    var idToEdit = prompt("Nhập mã SV của sinh viên cần sửa:");
+    if (!idToEdit) return; // Cancel button clicked or no input provided
+
+    // Find the student with the provided ID
+    var studentToEdit = students.find(function(student) {
+        return student.id === idToEdit;
+    });
+
+    if (!studentToEdit) {
+        alert("Không tìm thấy sinh viên có mã SV là " + idToEdit);
+        return;
+    }
+
+    // Prompt the user to enter the new information for the student
+    var newName = prompt("Nhập tên mới cho sinh viên có mã SV là " + idToEdit + ":", studentToEdit.name);
+    if (newName !== null) { // Prompt wasn't canceled
+        studentToEdit.name = newName;
+    }
+
+    var newClass = prompt("Nhập lớp mới cho sinh viên có mã SV là " + idToEdit + ":", studentToEdit.className);
+    if (newClass !== null) { // Prompt wasn't canceled
+        studentToEdit.className = newClass;
+    }
+
+    var newDOB = prompt("Nhập ngày tháng năm sinh mới cho sinh viên có mã SV là " + idToEdit + ":", studentToEdit.dob);
+    if (newDOB !== null) { // Prompt wasn't canceled
+        studentToEdit.dob = newDOB;
+    }
+
+    var newGPA = prompt("Nhập điểm GPA mới cho sinh viên có mã SV là " + idToEdit + ":", studentToEdit.gpa);
+    if (newGPA !== null) { // Prompt wasn't canceled
+        studentToEdit.gpa = newGPA;
+    }
+
+    displayStudentInfo(); // Update the displayed information
 }
